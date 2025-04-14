@@ -1,6 +1,7 @@
 // app/(tabs)/home.tsx
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import React from 'react';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -26,8 +27,11 @@ export default function HomeScreen() {
         </TouchableOpacity>
 
         <Text style={styles.loginText}>
-          ¿Ya tenes usuario? <Text style={styles.loginLink}>Inicia sesión</Text>
+        ¿Ya tenes usuario?{' '}
+        <Text style={styles.loginLink} onPress={() => router.push('/login')}>
+          Inicia sesión
         </Text>
+      </Text>
       </View>
     </ImageBackground>
   );
