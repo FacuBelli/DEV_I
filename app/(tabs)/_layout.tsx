@@ -1,38 +1,37 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+// app/_layout.tsx
+import React, { useEffect, useState } from "react";
+import NetInfo from "@react-native-community/netinfo";
+import { View, ActivityIndicator } from "react-native";
+import { Slot } from "expo-router";
+import NoConnection from "../no_connections"; 
 
-import HomeScreen from "./home";
-import ProfileScreen from "./profile";
-import ExploreScreen from "./explore";
+export default function Layout() {
+  const [isConnected, setIsConnected] = useState<boolean | null>(null);
 
-const Tab = createBottomTabNavigator();
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(state.isConnected && state.isInternetReachable);
+    });
 
-export default function TabNavigator() {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarIcon: ({ color, size }) => {
-          let iconName = "home";
+    // Verificación inicial
+    NetInfo.fetch().then((state) => {
+      setIsConnected(state.isConnected && state.isInternetReachable);
+    });
 
-          if (route.name === "Home") {
-            iconName = "home";
-          } else if (route.name === "Profile") {
-            iconName = "person";
-          } else if (route.name === "Explore") {
-            iconName = "search";
-          }
+    return () => unsubscribe();
+  }, []);
 
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: "tomato",
-        tabBarInactiveTintColor: "gray",
-      })}
-    >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Explore" component={ExploreScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
-    </Tab.Navigator>
-  );
+  if (isConnected === null) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#C24DD0" />
+      </View>
+    );
+  }
+
+  if (!isConnected) {
+    return <NoConnection />;
+  }
+
+  return <Slot />;
 }

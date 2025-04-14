@@ -1,43 +1,41 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 
 export default function NoConnectionScreen() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.card}>
-        <Text style={styles.cardText}>No hay conexión establecida</Text>
+        <Text style={styles.title}>No hay conexión establecida</Text>
       </View>
-
-      <Text style={styles.message}>
-        Revisá tu conexión y{'\n'}volvé a intentarlo
+      <Text style={styles.subtitle}>
+        Revisá tu conexión y volvé a intentarlo
       </Text>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFD800',
-    justifyContent: 'center',
+    backgroundColor: '#FFD700',
     alignItems: 'center',
+    justifyContent: 'center',
     padding: 20,
   },
   card: {
-    backgroundColor: '#B05FFF',
-    paddingVertical: 20,
-    paddingHorizontal: 30,
-    borderRadius: 12,
-    marginBottom: 40,
+    backgroundColor: '#B833E1',
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
   },
-  cardText: {
+  title: {
     color: 'white',
     fontSize: 16,
     textAlign: 'center',
   },
-  message: {
-    color: '#B05FFF',
+  subtitle: {
+    color: '#B833E1',
     fontSize: 16,
     textAlign: 'center',
-    fontWeight: 'bold',
   },
 });
