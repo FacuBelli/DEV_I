@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import RegistrationStepScreen from '../../components/ui/RegistrationStepScreen';
+import * as FileSystem from 'expo-file-system';
+import * as DocumentPicker from 'expo-document-picker';
 
 export default function CreateAccount() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -20,10 +22,35 @@ export default function CreateAccount() {
   };
 
   const handleSubmit = async () => {
-    // Aquí iría la lógica real para enviar los datos de registro al servidor
-    console.log('Datos de registro:', { email, alias, verificationCode, password });
-    // Después del registro exitoso, podrías navegar a otra pantalla
-    router.replace('/(tabs)/home');
+    const registrationData = `Correo electrónico: ${email}\nAlias: ${alias}\nCódigo de verificación: ${verificationCode}\nContraseña: ${password}\n\n`;
+    const fileName = 'registro_casiimote.txt';
+    const fileUri = FileSystem.documentDirectory + fileName;
+
+    try {
+      let existingContent = '';
+      const fileInfo = await FileSystem.getInfoAsync(fileUri);
+      if (fileInfo.exists) {
+        existingContent = await FileSystem.readAsStringAsync(fileUri, { encoding: FileSystem.EncodingType.UTF8 });
+      }
+
+      const newContent = existingContent + registrationData;
+
+      await FileSystem.writeAsStringAsync(fileUri, newContent, {
+        encoding: FileSystem.EncodingType.UTF8,
+      });
+
+      Alert.alert(
+        'Registro Exitoso',
+        `Datos guardados en ${fileUri}`,
+        [
+          { text: 'OK', onPress: () => router.replace('/(tabs)/home') },
+        ]
+      );
+      console.log(`Datos guardados en: ${fileUri}`);
+    } catch (error: any) {
+      Alert.alert('Error al Guardar', error.message);
+      console.error('Error al guardar los datos:', error);
+    }
   };
 
   return (
