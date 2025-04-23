@@ -1,33 +1,55 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+// app/login.tsx
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-import React from 'react';
+import AuthStep from '../components/ui/AuthSteps';
 
 export default function LoginScreen() {
+  const [step, setStep] = useState(1);
   const router = useRouter();
+
+  const handleNextStep = (value: string) => {
+    if (step === 1) {
+      // Guardar correo y alias, continuar al siguiente paso
+      setStep(2);
+    } else if (step === 2) {
+      // Guardar código de verificación, continuar al siguiente paso
+      setStep(3);
+    } else if (step === 3) {
+      // Guardar la contraseña, redirigir al Home o siguiente parte del proceso
+      router.push('/home');
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Iniciar sesión</Text>
-
-      <TextInput
-        placeholder="Correo electrónico"
-        placeholderTextColor="#aaa"
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Contraseña"
-        placeholderTextColor="#aaa"
-        secureTextEntry
-        style={styles.input}
-      />
-
-      <TouchableOpacity style={styles.button} onPress={() => router.push('/(tabs)/home')}>
-        <Text style={styles.buttonText}>Ingresar</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => router.back()}>
-        <Text style={styles.backText}>Volver</Text>
-      </TouchableOpacity>
+      {step === 1 && (
+        <AuthStep
+          title="Casiimote"
+          subtitle="Guarda tus objetivos y preferencias para sacar el máximo provecho."
+          placeholder="Correo electrónico"
+          buttonText="Siguiente"
+          onSubmit={handleNextStep}
+        />
+      )}
+      {step === 2 && (
+        <AuthStep
+          title="Casiimote"
+          subtitle="Ingresa el código que recibiste al correo electrónico"
+          placeholder="Código de Correo"
+          buttonText="Siguiente"
+          onSubmit={handleNextStep}
+        />
+      )}
+      {step === 3 && (
+        <AuthStep
+          title="Casiimote"
+          subtitle="Para finalizar ingresa una contraseña"
+          placeholder="Contraseña"
+          buttonText="Siguiente"
+          onSubmit={handleNextStep}
+        />
+      )}
     </View>
   );
 }
@@ -35,38 +57,8 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a1a',
     justifyContent: 'center',
-    padding: 20,
-  },
-  title: {
-    color: '#fff',
-    fontSize: 28,
-    marginBottom: 30,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  input: {
-    backgroundColor: '#333',
-    padding: 12,
-    borderRadius: 10,
-    marginBottom: 20,
-    color: '#fff',
-  },
-  button: {
-    backgroundColor: '#B05FFF',
-    paddingVertical: 12,
-    borderRadius: 25,
     alignItems: 'center',
-    marginBottom: 15,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
-  backText: {
-    color: '#FFD800',
-    textAlign: 'center',
-    marginTop: 10,
+    backgroundColor: '#F4F4F4',
   },
 });

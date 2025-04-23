@@ -5,6 +5,13 @@ import React from 'react';
 
 export default function HomeScreen() {
   const router = useRouter();
+    const handleStart = () => {
+      router.push("/questionnaire/1");
+    };
+    const handleCreateAccount = () => {
+      router.push('/createAccount'); // Navega a la primera pantalla de registro
+    };
+  
 
   return (
     <ImageBackground
@@ -22,7 +29,7 @@ export default function HomeScreen() {
           <Text style={styles.title}>y descubre el mundo</Text>
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={() => router.push('../assets/images/Logo1.jpg')}>
+        <TouchableOpacity style={styles.button} onPress={handleStart}>
           <Text style={styles.buttonText}>Empecemos</Text>
         </TouchableOpacity>
 
@@ -30,6 +37,12 @@ export default function HomeScreen() {
         ¿Ya tenes usuario?{' '}
         <Text style={styles.loginLink} onPress={() => router.push('/login')}>
           Inicia sesión
+        </Text>
+      </Text>
+      <Text style={styles.loginText}>
+        ¿Nuevo?{' '}
+        <Text style={styles.loginLink} onPress={handleCreateAccount}>
+          Registrate
         </Text>
       </Text>
       </View>

@@ -1,0 +1,82 @@
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { useRouter } from 'expo-router';
+import RegistrationStepScreen from '../../components/ui/RegistrationStepScreen';
+
+export default function CreateAccount() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [email, setEmail] = useState('');
+  const [alias, setAlias] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
+
+  const handleNextStep = () => {
+    setCurrentStep(prevStep => prevStep + 1);
+  };
+
+  const handlePreviousStep = () => {
+    setCurrentStep(prevStep => prevStep - 1);
+  };
+
+  const handleSubmit = async () => {
+    // Aquí iría la lógica real para enviar los datos de registro al servidor
+    console.log('Datos de registro:', { email, alias, verificationCode, password });
+    // Después del registro exitoso, podrías navegar a otra pantalla
+    router.replace('/(tabs)/home');
+  };
+
+  return (
+    <View style={{ flex: 1 }}>
+      {currentStep === 1 && (
+        <RegistrationStepScreen
+          title="Crear Cuenta"
+          subtitle="Guarda tus objetivos y preferencias para sacar el máximo provecho..."
+          fields={[
+            { label: 'Correo electrónico', placeholder: 'tu@email.com', keyboardType: 'email-address', value: email, onChangeText: setEmail, isValid: email.includes('@') },
+            { label: 'Alias', placeholder: 'Tu nombre de usuario', value: alias, onChangeText: setAlias, isValid: alias.length > 3 },
+          ]}
+          primaryButtonText="Siguiente"
+          onPrimaryButtonPress={handleNextStep}
+          secondaryButtonText="Ya tienes una cuenta?"
+          onSecondaryButtonPress={() => router.push('/login')}
+          onClose={() => router.back()}
+          currentStep={currentStep}
+          totalSteps={3}
+        />
+      )}
+      {currentStep === 2 && (
+        <RegistrationStepScreen
+          title="Verificar Correo"
+          subtitle="Ingresá el código que recibiste al correo electrónico"
+          fields={[
+            { label: 'Código de Correo', placeholder: 'XXXXXX', keyboardType: 'number-pad', value: verificationCode, onChangeText: setVerificationCode, isValid: verificationCode.length === 6 },
+          ]}
+          primaryButtonText="Siguiente"
+          onPrimaryButtonPress={handleNextStep}
+          secondaryButtonText="Ya tienes una cuenta?"
+          onSecondaryButtonPress={() => router.push('/login')}
+          onClose={() => router.back()}
+          currentStep={currentStep}
+          totalSteps={3}
+        />
+      )}
+      {currentStep === 3 && (
+        <RegistrationStepScreen
+          title="Crear Contraseña"
+          subtitle="Para finalizar ingresá una contraseña"
+          fields={[
+            { label: 'Contraseña', placeholder: '********', secureTextEntry: true, value: password, onChangeText: setPassword, isValid: password.length >= 6 },
+          ]}
+          primaryButtonText="Finalizar"
+          onPrimaryButtonPress={handleSubmit}
+          secondaryButtonText="Ya tienes una cuenta?"
+          onSecondaryButtonPress={() => router.push('/login')}
+          onClose={() => router.back()}
+          currentStep={currentStep}
+          totalSteps={3}
+        />
+      )}
+    </View>
+  );
+}
