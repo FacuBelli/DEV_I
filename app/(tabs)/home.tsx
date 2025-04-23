@@ -22,7 +22,7 @@ export default function HomeScreen() {
           <Text style={styles.title}>y descubre el mundo</Text>
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/explore')}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('../assets/images/Logo1.jpg')}>
           <Text style={styles.buttonText}>Empecemos</Text>
         </TouchableOpacity>
 

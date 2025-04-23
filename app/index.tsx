@@ -1,25 +1,24 @@
-// app/index.tsx
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { useRouter } from 'expo-router';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { useRouter } from "expo-router";
 
-export default function Splash() {
-  const [isLoading, setIsLoading] = useState(true);
+export default function WelcomeScreen() {
   const router = useRouter();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      router.replace('/home'); // Redirige al Home
-    }, 2000); // 2 segundos
-
-    return () => clearTimeout(timer);
-  }, []);
+  const handleStart = () => {
+    router.push("/questionnaire/1");
+  };
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/images/Logo1.jpg')} style={styles.logo} />
-      <Text style={styles.text}>Cargando...</Text>
+      <Image
+        source={require("../assets/images/Logo1.jpg")}
+        style={styles.logo}
+      />
+      <Text style={styles.title}>¡Bienvenido/a!</Text>
+      <Text style={styles.subtitle}>¿Listo para comenzar tu experiencia personalizada?</Text>
+      <TouchableOpacity style={styles.button} onPress={handleStart}>
+        <Text style={styles.buttonText}>Empecemos</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -27,19 +26,38 @@ export default function Splash() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFD800',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#FFD800",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 20,
   },
   logo: {
-    width: 150,
-    height: 150,
-    marginBottom: 20,
-    resizeMode: 'contain',
+    width: 160,
+    height: 160,
+    marginBottom: 30,
+    resizeMode: "contain",
   },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#26355D',
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#26355D",
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 40,
+    color: "#333",
+  },
+  button: {
+    backgroundColor: "#A259FF",
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
