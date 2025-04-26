@@ -5,12 +5,10 @@ import React from 'react';
 
 export default function HomeScreen() {
   const router = useRouter();
-    const handleStart = () => {
-      router.push("/questionnaire/1");
-    };
-    const handleCreateAccount = () => {
-      router.push('/createAccount'); // Navega a la primera pantalla de registro
-    };
+
+  const handleStart = () => {
+    router.push('/loginFlow');
+  };
   
 
   return (
@@ -34,17 +32,11 @@ export default function HomeScreen() {
         </TouchableOpacity>
 
         <Text style={styles.loginText}>
-        ¿Ya tenes usuario?{' '}
-        <Text style={styles.loginLink} onPress={() => router.push('/login')}>
-          Inicia sesión
+          ¿Ya tenes usuario?{' '}
+          <Text style={styles.loginLink} onPress={() => router.push('/login')}>
+            Inicia sesión
+          </Text>
         </Text>
-      </Text>
-      <Text style={styles.loginText}>
-        ¿Nuevo?{' '}
-        <Text style={styles.loginLink} onPress={handleCreateAccount}>
-          Registrate
-        </Text>
-      </Text>
       </View>
     </ImageBackground>
   );
