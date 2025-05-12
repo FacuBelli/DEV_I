@@ -17,7 +17,7 @@ export default function LoginScreen() {
       setStep(3);
     } else if (step === 3) {
       // Guardar la contraseña, redirigir al Home o siguiente parte del proceso
-      router.push('/home');
+      router.push('/guest_home');
     }
   };
 

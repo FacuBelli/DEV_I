@@ -43,7 +43,7 @@ export default function CreateAccount() {
         'Registro Exitoso',
         `Datos guardados en ${fileUri}`,
         [
-          { text: 'OK', onPress: () => router.replace('/(tabs)/home') },
+          { text: 'OK', onPress: () => router.replace('./home.tsx') },
         ]
       );
       console.log(`Datos guardados en: ${fileUri}`);

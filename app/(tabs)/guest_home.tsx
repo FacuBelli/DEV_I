@@ -4,11 +4,11 @@ import { View, Text, TextInput, StyleSheet, Image, FlatList, TouchableOpacity } 
 import { Ionicons } from '@expo/vector-icons';
 
 const categories = [
-  { title: 'Lo último', image: require('../assets/categories/latest.jpg') },
-  { title: 'Para sorprender', image: require('../assets/categories/surprise.jpg') },
-  { title: '4 ingredientes o menos', image: require('../assets/categories/4ingredients.jpg') },
-  { title: 'Menos de 20 min', image: require('../assets/categories/quick.jpg') },
-  { title: 'Saludables', image: require('../assets/categories/healthy.jpg') },
+  { title: 'Lo último', image: require('../../assets/categories/latest.jpg') },
+  { title: 'Para sorprender', image: require('../../assets/categories/surprise.jpg') },
+  { title: '4 ingredientes o menos', image: require('../../assets/categories/4ingredients.jpg') },
+  { title: 'Menos de 20 min', image: require('../../assets/categories/quick.jpg') },
+  { title: 'Saludables', image: require('../../assets/categories/healthy.jpg') },
 ];
 
 export default function GuestHome() {
@@ -26,7 +26,7 @@ export default function GuestHome() {
 
       <Text style={styles.subTitle}>Últimas Recetas Compartidas</Text>
       <Image
-        source={require('../assets/recipes/featured.jpg')}
+        source={require('../../assets/recipes/featured.jpg')}
         style={styles.featuredImage}
       />
 
