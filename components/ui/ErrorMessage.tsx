@@ -1,30 +1,22 @@
 // components/ui/ErrorMessage.tsx
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import React from 'react';
 
-export default function ErrorMessage({ message, options }: { message: string; options?: string[] }) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.errorText}>{message}</Text>
-      {options && options.map((opt, idx) => (
-        <Text key={idx} style={styles.optionText}>{opt}</Text>
-      ))}
-    </View>
-  );
+type ErrorMessageProps = {
+  message: string;
+};
+
+export default function ErrorMessage({ message }: ErrorMessageProps) {
+  if (!message) return null;
+
+  return <Text style={styles.error}>{message}</Text>;
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 10,
-    alignItems: 'center',
-  },
-  errorText: {
+  error: {
     color: 'red',
     textAlign: 'center',
-    marginBottom: 5,
-  },
-  optionText: {
-    color: 'red',
-    fontWeight: 'bold',
+    marginBottom: 10,
+    fontSize: 14,
   },
 });
