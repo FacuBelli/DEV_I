@@ -1,43 +1,40 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import * as FileSystem from 'expo-file-system';
-import ErrorMessage from '../../components/ui/ErrorMessage';
+import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 
 export default function Step3() {
   const router = useRouter();
-  const { email, alias, code } = useLocalSearchParams();
+  const { email } = useLocalSearchParams();
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleFinish = async () => {
-    if (!password) {
-      setError('La contraseña no puede estar vacía');
+  const handleNext = () => {
+    if (password.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres');
       return;
-    }else if (password.length <= 7) {
-      setError('Contraseña muy corta');
+    }else  if (!password) {
+      setError('La contraseña no puede estar vacía');
       return;
     }
 
-    const data = `Email: ${email}\nAlias: ${alias}\nCódigo: ${code}\nContraseña: ${password}`;
-    const fileUri = FileSystem.documentDirectory + 'registro_casiimote.txt';
-    await FileSystem.writeAsStringAsync(fileUri, data);
+    // Acá podrías guardar la contraseña o enviarla a una API si lo necesitás
 
-    Alert.alert('Cuenta creada', 'Tu cuenta ha sido registrada con éxito');
-    router.replace('/(tabs)/guest_home');
+    // Redirigir al cuestionario
+    router.push('/questionnaire/1');
   };
 
   return (
     <View style={styles.container}>
+      <Text>Creá una contraseña</Text>
       <TextInput
         placeholder="Contraseña"
+        secureTextEntry
         value={password}
         onChangeText={setPassword}
-        secureTextEntry
         style={styles.input}
       />
-      <ErrorMessage message={error} />
-      <Button title="Finalizar" onPress={handleFinish} />
+      {error !== '' && <Text style={styles.error}>{error}</Text>}
+      <Button title="Continuar" onPress={handleNext} />
     </View>
   );
 }
@@ -45,4 +42,6 @@ export default function Step3() {
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', padding: 20 },
   input: { borderWidth: 1, borderColor: '#ccc', padding: 10, marginBottom: 10 },
+  error: { color: 'red', marginBottom: 10 },
 });
+
