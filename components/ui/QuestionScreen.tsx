@@ -21,7 +21,7 @@ export default function QuestionScreen({ title, options, step, total }: Props) {
       });
     } else {
 
-      router.replace("/home");
+      router.replace("/(tabs)/guest_home");
     }
   };
   

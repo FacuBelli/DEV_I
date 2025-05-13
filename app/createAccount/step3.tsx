@@ -14,15 +14,17 @@ export default function Step3() {
     if (!password) {
       setError('La contraseña no puede estar vacía');
       return;
+    }else if (password.length <= 7) {
+      setError('Contraseña muy corta');
+      return;
     }
-    setError('');
 
     const data = `Email: ${email}\nAlias: ${alias}\nCódigo: ${code}\nContraseña: ${password}`;
     const fileUri = FileSystem.documentDirectory + 'registro_casiimote.txt';
     await FileSystem.writeAsStringAsync(fileUri, data);
 
     Alert.alert('Cuenta creada', 'Tu cuenta ha sido registrada con éxito');
-    router.replace('/(tabs)/home');
+    router.replace('/(tabs)/guest_home');
   };
 
   return (

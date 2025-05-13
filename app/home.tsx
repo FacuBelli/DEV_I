@@ -7,7 +7,7 @@ export default function HomeScreen() {
   const router = useRouter();
 
   const handleStart = () => {
-    router.push('/loginFlow');
+    router.push('/createAccount/step1');
   };
   
 
@@ -33,7 +33,7 @@ export default function HomeScreen() {
 
         <Text style={styles.loginText}>
           ¿Ya tenes usuario?{' '}
-          <Text style={styles.loginLink} onPress={() => router.push('/login')}>
+          <Text style={styles.loginLink} onPress={() => router.push('./login')}>
             Inicia sesión
           </Text>
         </Text>

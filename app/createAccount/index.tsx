@@ -66,7 +66,7 @@ export default function CreateAccount() {
           primaryButtonText="Siguiente"
           onPrimaryButtonPress={handleNextStep}
           secondaryButtonText="Ya tienes una cuenta?"
-          onSecondaryButtonPress={() => router.push('/login')}
+          onSecondaryButtonPress={() => router.push('./login')}
           onClose={() => router.back()}
           currentStep={currentStep}
           totalSteps={3}
@@ -82,7 +82,7 @@ export default function CreateAccount() {
           primaryButtonText="Siguiente"
           onPrimaryButtonPress={handleNextStep}
           secondaryButtonText="Ya tienes una cuenta?"
-          onSecondaryButtonPress={() => router.push('/login')}
+          onSecondaryButtonPress={() => router.push('./login')}
           onClose={() => router.back()}
           currentStep={currentStep}
           totalSteps={3}
@@ -98,7 +98,7 @@ export default function CreateAccount() {
           primaryButtonText="Finalizar"
           onPrimaryButtonPress={handleSubmit}
           secondaryButtonText="Ya tienes una cuenta?"
-          onSecondaryButtonPress={() => router.push('/login')}
+          onSecondaryButtonPress={() => router.push('./login')}
           onClose={() => router.back()}
           currentStep={currentStep}
           totalSteps={3}
